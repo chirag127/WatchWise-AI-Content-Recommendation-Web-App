@@ -1,177 +1,117 @@
-# ContentLens-Media-Recommendation-Engine-CLI-Tool
+# WatchWise-AI-Content-Recommendation-Web-App
 
-A robust, intelligent command-line interface (CLI) tool for deep content analysis and personalized media recommendation generation based on user profile vectorization.
+[![Build Status](https://img.shields.io/github/actions/workflow/status/chirag127/WatchWise-AI-Content-Recommendation-Web-App/ci.yml?branch=main&style=flat-square)](https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/chirag127/WatchWise-AI-Content-Recommendation-Web-App?style=flat-square)](https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/chirag127/WatchWise-AI-Content-Recommendation-Web-App?style=flat-square)](https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App)
 
-[![Build Status](https://img.shields.io/github/actions/workflow/user/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool/ci.yml?style=flat-square&label=Build)](https://github.com/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool/actions/workflows/ci.yml)
-[![Code Coverage](https://img.shields.io/codecov/c/github/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool?style=flat-square&token=YOUR_CODECOV_TOKEN)](https://codecov.io/github/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool)
-[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-orange?style=flat-square)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![GitHub Stars](https://img.shields.io/github/stars/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool?style=flat-square)](https://github.com/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool/stargazers)
+An AI-powered web application that intelligently recommends movies and TV shows. It learns user preferences to curate personalized watchlists and discover new content.
 
-[**⭐ Star this Repo ⭐**](https://github.com/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool)
+## Table of Contents
 
----
+-   [Overview](#overview)
+-   [Features](#features)
+-   [Architecture](#architecture)
+-   [AI Agent Directives](#ai-agent-directives)
+-   [Getting Started](#getting-started)
+-   [Usage](#usage)
+-   [Contributing](#contributing)
+-   [License](#license)
 
-## ✨ Project Overview
+## Overview
 
-ContentLens is an advanced command-line interface (CLI) tool designed for sophisticated content analysis and the generation of personalized media recommendations. It leverages intelligent algorithms to vectorize user profiles and derive insightful recommendations from diverse content sources.
+WatchWise is a web application designed to provide personalized movie and TV show recommendations using AI algorithms. It learns from user preferences and viewing history to suggest relevant content, helping users discover new favorites and create customized watchlists.
 
----
+## Features
 
-## 🌳 Architecture
+-   **AI-Powered Recommendations:** Intelligent algorithms that analyze user preferences to suggest relevant movies and TV shows.
+-   **Personalized Watchlists:** Create and manage custom watchlists based on AI recommendations and personal choices.
+-   **Content Discovery:** Explore new and trending content based on user preferences and community activity.
+-   **User Profiles:** Manage user profiles and preferences for accurate recommendations.
+-   **Responsive Design:** User-friendly interface optimized for various devices.
 
-ascii
-ContentLens CLI Tool
-├─ src/
-│  ├─ __init__.py
-│  ├─ core/
-│  │  ├─ __init__.py
-│  │  ├─ analyzer.py     # Handles content analysis logic
-│  │  ├─ recommender.py  # Generates recommendations
-│  │  └─ vectorizer.py   # User profile vectorization
-│  ├─ cli/
-│  │  ├─ __init__.py
-│  │  └─ commands.py     # CLI command definitions using Click
-│  ├─ utils/
-│  │  ├─ __init__.py
-│  │  └─ helpers.py      # Utility functions
-│  └─ data/
-│     ├─ __init__.py
-│     └─ __init__.py     # Placeholder for data loading/storage
-├─ tests/
-│  ├─ __init__.py
-│  ├─ test_analyzer.py
-│  ├─ test_recommender.py
-│  └─ test_vectorizer.py
-├─ pyproject.toml
-├─ .gitignore
-├─ LICENSE
-└─ README.md
+## Architecture
+
+mermaid
+ graph LR
+    A[User] --> B(Frontend: React/Vite/TS);
+    B --> C{API Gateway};
+    C --> D[Recommendation Engine: Python/FastAPI];
+    C --> E[User Profile Service: Python/FastAPI];
+    D --> F(Movie/TV Show Database);
+    E --> F;
+    style A fill:#f9f,stroke:#333,stroke-width:2px
 
 
----
-
-## 📚 Table of Contents
-
-- [Project Overview](#-project-overview)
-- [Architecture](#-architecture)
-- [Table of Contents](#-table-of-contents)
-- [AI Agent Directives](#-ai-agent-directives)
-- [Core Principles](#core-principles)
-- [Development Setup](#-development-setup)
-- [Usage](#-usage)
-- [Testing](#-testing)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Security](#-security)
-
----
-
-## 🤖 AI Agent Directives
+## AI Agent Directives
 
 <details>
-<summary>Click to expand AI Agent Directives</summary>
+  <summary>Expand to view AI Agent Directives</summary>
 
-This repository is designed for automated agent interaction, adhering to the following directives:
+  This project, `WatchWise-AI-Content-Recommendation-Web-App`, is a web application that leverages AI to provide personalized movie and TV show recommendations. Here are the directives for AI agents working on this repository:
 
-*   **Technology Stack:**
-    *   **Language:** Python 3.10+
-    *   **Package Manager:** `uv` (for dependency management and resolution).
-    *   **Linter/Formatter:** `Ruff` (for ultra-fast linting and formatting).
-    *   **Testing Framework:** `Pytest` (for robust unit and integration testing).
-    *   **CLI Framework:** `Click` (or similar) for intuitive command-line interface.
-    *   **AI Integration:** Assumed integration with external AI models (e.g., for vectorization or complex recommendation logic). Ensure robust API contracts and error handling.
-*   **Architectural Patterns:**
-    *   **Modular Monolith:** Follows a modular monolith approach for clear separation of concerns while maintaining a unified codebase.
-    *   **SOLID Principles:** Adherence to Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion principles.
-    *   **DRY (Don't Repeat Yourself):** Minimize code duplication.
-    *   **YAGNI (You Aren't Gotta Need It):** Avoid over-engineering.
-*   **Verification Commands:**
-    *   **Install Dependencies:** `uv pip install -r requirements.txt` (or `uv sync` if using `pyproject.toml` for dependencies).
-    *   **Lint and Format:** `ruff check .` and `ruff format .`
-    *   **Run Tests:** `pytest`
-    *   **Run CLI Help:** `contentlens --help`
+  **Tech Stack Definition:**
+  -   **Primary Scenario: WEB / APP / GUI (Modern Frontend)**
+      -   **Stack:** TypeScript (Strict), Vite, TailwindCSS v4, React.
+      -   **Lint/Test:** Biome (Speed) + Vitest (Unit) + Playwright (E2E).
+      -   **Architecture:** Feature-Sliced Design (FSD).
+  -   **Secondary Scenario: DATA / AI / SCRIPTS (Python)**
+      -   **Stack:** uv (Manager), Ruff (Linter), Pytest (Test).
+      -   **Architecture:** Modular Monolith or Microservices.
+
+  **Architectural Patterns:**
+  -   Adheres to SOLID principles for maintainable and scalable code.
+  -   Employs DRY (Don't Repeat Yourself) principle to reduce redundancy.
+
+  **Verification Commands:**
+  -   Frontend: `npm run lint`, `npm run test`, `npm run build`
+  -   Backend: `uv pip install -r requirements.txt`, `pytest`
 
 </details>
 
----
+## Getting Started
 
-## 💎 Core Principles
+To get started with the project, follow these steps:
 
-*   **SOLID:** Design for maintainability and extensibility.
-*   **DRY:** Eliminate redundancy.
-*   **YAGNI:** Focus on essential functionality.
-*   **Modularity:** Encapsulate features into distinct modules.
-*   **Testability:** Write comprehensive tests.
+1.  Clone the repository:
 
----
-
-## 🚀 Development Setup
-
-1.  **Clone the Repository:**
     bash
-    git clone https://github.com/chirag127/ContentLens-Media-Recommendation-Engine-CLI-Tool.git
-    cd ContentLens-Media-Recommendation-Engine-CLI-Tool
+    git clone https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App.git
+    cd WatchWise-AI-Content-Recommendation-Web-App
     
 
-2.  **Set up Python Environment (Recommended: `venv` or `uv`):**
-    bash
-    # Using venv
-    python -m venv .venv
-    source .venv/bin/activate
+2.  Install the dependencies:
 
-    # Or using uv (if installed)
-    uv venv
-    source .venv/bin/activate
+    bash
+    npm install # For Frontend
+    uv pip install -r requirements.txt # For Backend
     
 
-3.  **Install Dependencies:**
-    bash
-    # Ensure pyproject.toml is configured or requirements.txt exists
-    uv pip install -r requirements.txt 
-    # Or if using pyproject.toml for dev dependencies:
-    # uv sync --dev
-    
+3.  Configure the environment variables:
 
----
+    -   Create a `.env` file in the root directory.
+    -   Add the necessary environment variables (e.g., API keys, database credentials).
 
-## 💡 Usage
+## Usage
+
+### Running the Frontend
 
 bash
-# Display help message
-contentlens --help
-
-# Analyze content and generate recommendations
-contentlens analyze --content-path /path/to/your/content --user-profile /path/to/user/profile.json
-
-# Further command examples will be added as features evolve.
+npm run dev
 
 
----
+### Running the Backend
 
-## 🧪 Testing
+bash
+python main.py
 
-*   **Run Unit and Integration Tests:**
-    bash
-    pytest
-    
 
-*   **Code Coverage:** Ensure sufficient test coverage. The `codecov.yml` configuration will guide this. For local checks, you can use `pytest --cov=src`.
+## Contributing
 
----
+Contributions are welcome! Please read the [contributing guidelines](https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App/blob/main/.github/CONTRIBUTING.md) before contributing.
 
-## 🤝 Contributing
+## License
 
-Contributions are welcome! Please refer to the `.github/CONTRIBUTING.md` file for detailed guidelines.
+This project is licensed under the [CC BY-NC 4.0 License](https://github.com/chirag127/WatchWise-AI-Content-Recommendation-Web-App/blob/main/LICENSE).
 
----
 
-## 📜 License
-
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)**. See the `LICENSE` file for more details.
-
----
-
-## 🛡️ Security
-
-Refer to `.github/SECURITY.md` for security best practices and reporting procedures.
+Give a Star ⭐ to this Repo, if you Liked it.
