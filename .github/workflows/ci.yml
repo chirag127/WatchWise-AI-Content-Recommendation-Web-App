@@ -1,0 +1,49 @@
+name: WatchWise CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-lint-test:
+    name: Build, Lint, and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Using a specific LTS version for stability
+          cache: 'npm' # Cache npm dependencies to speed up builds
+
+      - name: Install Dependencies
+        run: npm install --frozen-lockfile # Ensure exact dependency versions for CI
+
+      - name: Run Biome Linter and Formatter
+        # Assumes 'lint' script in package.json runs biome check --apply --organize-imports
+        run: npm run lint
+
+      - name: Run Unit Tests with Vitest
+        # Assumes 'test' script in package.json runs vitest and generates coverage reports
+        run: npm run test -- --coverage
+
+      - name: Build Project
+        # Assumes 'build' script in package.json builds the Vite project for production
+        run: npm run build
+
+      - name: Upload Code Coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Required for private repositories and detailed reporting
+          directory: ./coverage # Default output directory for Vitest coverage reports
+          fail_ci_if_error: true # Fail the CI pipeline if Codecov upload encounters an error
+          files: ./coverage/lcov.info # Specify the lcov format for broad compatibility
+          verbose: true # Enable verbose logging for easier debugging
