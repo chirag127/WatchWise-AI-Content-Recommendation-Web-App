@@ -1,49 +1,62 @@
-name: WatchWise CI Pipeline
+# CI Workflow for CineTrack-Media-Watchlist-CLI-Tool
 
+name: CI
+
+# Controls when the workflow will run
+# Runs on pushes to the main branch and on pull request events to the main branch
 on:
   push:
-    branches:
-      - main
-      - develop
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-      - develop
+    branches: [ main ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-lint-test:
-    name: Build, Lint, and Test
+  # This job builds and tests the application
+  build-and-test:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository into the current workflow runner environment
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # Set up Python environment
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
         with:
-          node-version: '20' # Using a specific LTS version for stability
-          cache: 'npm' # Cache npm dependencies to speed up builds
+          python-version: '3.10'
+          cache: 'uv'
 
-      - name: Install Dependencies
-        run: npm install --frozen-lockfile # Ensure exact dependency versions for CI
+      # Install dependencies using uv
+      - name: Install Dependencies with uv
+        run: | # Use shell commands to install dependencies
+          python -m uv pip install --system --editable "[dev]" . # Installs the package and dev dependencies
 
-      - name: Run Biome Linter and Formatter
-        # Assumes 'lint' script in package.json runs biome check --apply --organize-imports
-        run: npm run lint
+      # Run linters and formatters using Ruff
+      - name: Lint with Ruff
+        run: | # Use shell commands for Ruff
+          python -m ruff check .
+          python -m ruff format --check .
 
-      - name: Run Unit Tests with Vitest
-        # Assumes 'test' script in package.json runs vitest and generates coverage reports
-        run: npm run test -- --coverage
+      # Run tests with Pytest
+      - name: Test with Pytest
+        run: | # Use shell commands for Pytest
+          python -m pytest tests/ # Assumes tests are in a 'tests/' directory
 
-      - name: Build Project
-        # Assumes 'build' script in package.json builds the Vite project for production
-        run: npm run build
+      # Optional: Code Coverage (requires Codecov or similar setup)
+      # - name: Upload Coverage Reports
+      #   uses: codecov/codecov-action@v4
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #   with:
+      #     fail_ci_if_error: true
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     slug: chirag127/CineTrack-Media-Watchlist-CLI-Tool
 
-      - name: Upload Code Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }} # Required for private repositories and detailed reporting
-          directory: ./coverage # Default output directory for Vitest coverage reports
-          fail_ci_if_error: true # Fail the CI pipeline if Codecov upload encounters an error
-          files: ./coverage/lcov.info # Specify the lcov format for broad compatibility
-          verbose: true # Enable verbose logging for easier debugging
+      # Optional: Build the CLI tool (if applicable, e.g., using setuptools or similar)
+      # - name: Build Distribution
+      #   run: | # Use shell commands for building
+      #     python -m build
